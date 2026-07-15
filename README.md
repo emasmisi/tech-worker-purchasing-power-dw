@@ -77,3 +77,4 @@ The script is **idempotent**: every run rebuilds the schema from scratch and end
 - **The warehouse never loses information.** Cleaning removes only *wrong* data (implausible self-reported salaries, 1st–99th percentile trim); analytical choices such as the n ≥ 30 country threshold live in queries (`HAVING`), not in the ETL.
 - **Non-additive measures.** Salaries are never summed: all aggregations use medians (`percentile_cont`), robust to the right-skewed distribution.
 - **Declared limitations:** self-reported data, small samples for some top-ranked countries, country-grain cost indices, single-year snapshot (deliberately no time dimension).
+# tech-worker-purchasing-power-dw
