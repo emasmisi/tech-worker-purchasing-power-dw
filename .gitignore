@@ -1,0 +1,13 @@
+# data is downloaded by the ETL via kagglehub — never committed
+*.csv
+data/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# os / editors
+.DS_Store
+.vscode/
+.ipynb_checkpoints/

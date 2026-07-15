@@ -1,0 +1,105 @@
+<svg viewBox="0 0 1250 920" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1250" height="920" fill="white"/>
+  <text x="625" y="40" text-anchor="middle" font-size="22" font-weight="bold">DFM — The Purchasing Power of the Tech Worker</text>
+  <text x="625" y="66" text-anchor="middle" font-size="14" fill="#555">Fact grain: one survey response (Stack Overflow Developer Survey 2024)</text>
+
+  <!-- FACT -->
+  <rect x="470" y="400" width="310" height="110" fill="#fff" stroke="#000" stroke-width="2"/>
+  <rect x="470" y="400" width="310" height="34" fill="#eee" stroke="#000" stroke-width="2"/>
+  <text x="625" y="423" text-anchor="middle" font-size="16" font-weight="bold">SURVEY RESPONSE</text>
+  <text x="485" y="456" font-size="14">comp_usd  (MEDIAN)</text>
+  <text x="485" y="478" font-size="14">comp_adjusted  (MEDIAN)</text>
+  <text x="485" y="499" font-size="11" fill="#777">derived: comp_adjusted = comp_usd / (col_index / 100)</text>
+
+  <!-- GEOGRAPHY (right): country -> sub_region -> region -->
+  <line x1="780" y1="440" x2="873" y2="440" stroke="#000" stroke-width="1.5"/>
+  <circle cx="880" cy="440" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="880" y="425" text-anchor="middle" font-size="14" font-weight="bold">country</text>
+  <line x1="886" y1="440" x2="996" y2="440" stroke="#000" stroke-width="1.5"/>
+  <circle cx="1003" cy="440" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="1003" y="425" text-anchor="middle" font-size="14">sub_region</text>
+  <line x1="1009" y1="440" x2="1119" y2="440" stroke="#000" stroke-width="1.5"/>
+  <circle cx="1126" cy="440" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="1126" y="425" text-anchor="middle" font-size="14">region</text>
+
+  <!-- descriptive attributes of country: plain line + underlined name
+       (two tight columns below country; lines never cross the labels) -->
+  <line x1="880" y1="446" x2="868" y2="506" stroke="#000" stroke-width="1"/>
+  <text x="862" y="512" text-anchor="end" font-size="12.5" text-decoration="underline">alpha3</text>
+  <line x1="880" y1="446" x2="868" y2="531" stroke="#000" stroke-width="1"/>
+  <text x="862" y="537" text-anchor="end" font-size="12.5" text-decoration="underline">col_index</text>
+  <line x1="880" y1="446" x2="868" y2="556" stroke="#000" stroke-width="1"/>
+  <text x="862" y="562" text-anchor="end" font-size="12.5" text-decoration="underline">rent_index</text>
+  <line x1="880" y1="446" x2="928" y2="506" stroke="#000" stroke-width="1"/>
+  <text x="934" y="512" font-size="12.5" text-decoration="underline">groceries_index</text>
+  <line x1="880" y1="446" x2="928" y2="531" stroke="#000" stroke-width="1"/>
+  <text x="934" y="537" font-size="12.5" text-decoration="underline">restaurant_index</text>
+  <line x1="880" y1="446" x2="928" y2="556" stroke="#000" stroke-width="1"/>
+  <text x="934" y="562" font-size="12.5" text-decoration="underline">lpp_index</text>
+  <text x="1000" y="392" text-anchor="middle" font-size="13" font-style="italic" fill="#777">GEOGRAPHY</text>
+
+  <!-- AGE (top-right) -->
+  <line x1="730" y1="400" x2="822" y2="308" stroke="#000" stroke-width="1.5"/>
+  <circle cx="827" cy="303" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="842" y="299" font-size="14">age</text>
+
+  <!-- EDUCATION (top) -->
+  <line x1="655" y1="400" x2="655" y2="292" stroke="#000" stroke-width="1.5"/>
+  <circle cx="655" cy="285" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="655" y="268" text-anchor="middle" font-size="14">ed_level</text>
+
+  <!-- DEV TYPE (top-left) -->
+  <line x1="560" y1="400" x2="465" y2="305" stroke="#000" stroke-width="1.5"/>
+  <circle cx="460" cy="300" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="448" y="290" text-anchor="end" font-size="14">dev_type</text>
+
+  <!-- LANGUAGE (left, multiple arc = double line) -->
+  <line x1="470" y1="428" x2="345" y2="388" stroke="#000" stroke-width="1.5"/>
+  <line x1="470" y1="438" x2="347" y2="398" stroke="#000" stroke-width="1.5"/>
+  <circle cx="338" cy="391" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="322" y="382" text-anchor="end" font-size="14" font-weight="bold">language</text>
+  <text x="322" y="400" text-anchor="end" font-size="12" fill="#777" font-style="italic">multiple arc (many-to-many)</text>
+
+  <!-- EXPERIENCE (left-low): years_code_pro -> experience_band -->
+  <line x1="470" y1="480" x2="345" y2="512" stroke="#000" stroke-width="1.5"/>
+  <circle cx="338" cy="514" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="338" y="535" text-anchor="middle" font-size="14">years_code_pro</text>
+  <line x1="332" y1="514" x2="207" y2="514" stroke="#000" stroke-width="1.5"/>
+  <circle cx="200" cy="514" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="200" y="535" text-anchor="middle" font-size="14">experience_band</text>
+  <text x="200" y="552" text-anchor="middle" font-size="11.5" fill="#777">Junior 0–2 · Mid 3–5 · Senior 6–10 · Expert 11+</text>
+  <text x="268" y="482" text-anchor="middle" font-size="13" font-style="italic" fill="#777">EXPERIENCE</text>
+
+  <!-- ORG SIZE (bottom-left) -->
+  <line x1="560" y1="510" x2="465" y2="605" stroke="#000" stroke-width="1.5"/>
+  <circle cx="460" cy="610" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="448" y="630" text-anchor="end" font-size="14">org_size</text>
+
+  <!-- EMPLOYMENT (bottom) -->
+  <line x1="610" y1="510" x2="585" y2="640" stroke="#000" stroke-width="1.5"/>
+  <circle cx="583" cy="647" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="583" y="668" text-anchor="middle" font-size="14">employment</text>
+
+  <!-- REMOTE WORK (bottom) -->
+  <line x1="700" y1="510" x2="738" y2="640" stroke="#000" stroke-width="1.5"/>
+  <circle cx="740" cy="647" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="740" y="668" text-anchor="middle" font-size="14">remote_work</text>
+
+  <!-- INDUSTRY (bottom-right) -->
+  <line x1="740" y1="510" x2="905" y2="600" stroke="#000" stroke-width="1.5"/>
+  <circle cx="911" cy="604" r="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="925" y="608" font-size="14">industry  ('Unknown' member for nulls)</text>
+
+  <!-- LEGEND -->
+  <rect x="60" y="740" width="620" height="150" fill="#fafafa" stroke="#ccc"/>
+  <text x="75" y="765" font-size="13" font-weight="bold">Legend (DFM notation — Golfarelli/Rizzi, course slides)</text>
+  <circle cx="85" cy="787" r="5" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="100" y="791" font-size="12.5">dimensional attribute — chains of circles are hierarchies: each arc is a many-to-one</text>
+  <text x="100" y="807" font-size="12.5">functional dependency; roll-up moves away from the fact (country → sub_region → region)</text>
+  <line x1="75" y1="825" x2="95" y2="825" stroke="#000" stroke-width="1"/>
+  <text x="100" y="829" font-size="12.5"><tspan text-decoration="underline">underlined name</tspan> = descriptive attribute (describes a level, never used to aggregate)</text>
+  <line x1="75" y1="845" x2="95" y2="845" stroke="#000" stroke-width="1.5"/>
+  <line x1="75" y1="850" x2="95" y2="850" stroke="#000" stroke-width="1.5"/>
+  <text x="100" y="851" font-size="12.5">multiple arc = many-to-many between fact and attribute (bridge table in the logical schema)</text>
+  <text x="75" y="874" font-size="12.5">(MEDIAN) next to a measure = aggregation operator: measures are non-additive (never SUM)</text>
+</svg>

@@ -1,0 +1,147 @@
+<svg viewBox="0 0 1300 980" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1300" height="980" fill="white"/>
+  <text x="650" y="38" text-anchor="middle" font-size="22" font-weight="bold">Star Schema — The Purchasing Power of the Tech Worker</text>
+  <text x="650" y="62" text-anchor="middle" font-size="13" fill="#555">PostgreSQL · surrogate keys · bridge table for the multi-valued attribute</text>
+
+  <!-- connectors (below boxes) -->
+  <g stroke="#999" stroke-width="1.3">
+    <line x1="650" y1="330" x2="650" y2="220"/>
+    <line x1="540" y1="330" x2="330" y2="220"/>
+    <line x1="760" y1="330" x2="970" y2="220"/>
+    <line x1="500" y1="420" x2="300" y2="400"/>
+    <line x1="500" y1="500" x2="300" y2="560"/>
+    <line x1="800" y1="420" x2="1000" y2="380"/>
+    <line x1="800" y1="520" x2="1000" y2="620"/>
+    <line x1="560" y1="590" x2="380" y2="720"/>
+    <line x1="700" y1="590" x2="800" y2="720"/>
+    <line x1="650" y1="590" x2="600" y2="800"/>
+    <line x1="460" y1="850" x2="330" y2="850"/>
+  </g>
+
+  <!-- FACT TABLE -->
+  <g>
+    <rect x="500" y="330" width="300" height="260" fill="#fff8e6" stroke="#000" stroke-width="2"/>
+    <rect x="500" y="330" width="300" height="30" fill="#f0d890" stroke="#000" stroke-width="2"/>
+    <text x="650" y="351" text-anchor="middle" font-size="15" font-weight="bold">fact_survey_response</text>
+    <text x="515" y="380" font-size="12.5" font-weight="bold">fact_key  (PK)</text>
+    <text x="515" y="398" font-size="12.5" fill="#555">response_id  (degenerate dimension)</text>
+    <text x="515" y="418" font-size="12.5">geography_key · experience_key</text>
+    <text x="515" y="436" font-size="12.5">devtype_key · education_key</text>
+    <text x="515" y="454" font-size="12.5">orgsize_key · remotework_key</text>
+    <text x="515" y="472" font-size="12.5">employment_key · industry_key</text>
+    <text x="515" y="490" font-size="12.5">age_key      (FKs → dimensions)</text>
+    <line x1="510" y1="504" x2="790" y2="504" stroke="#bbb"/>
+    <text x="515" y="524" font-size="13" font-weight="bold">comp_usd</text>
+    <text x="515" y="544" font-size="13" font-weight="bold">comp_adjusted</text>
+    <text x="515" y="562" font-size="11" fill="#777">non-additive measures (AVG/MEDIAN, never SUM)</text>
+    <text x="515" y="580" font-size="11" fill="#777">~23,000 rows · grain: 1 respondent</text>
+  </g>
+
+  <!-- DIM GEOGRAPHY (right, large) -->
+  <g>
+    <rect x="1000" y="280" width="270" height="200" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="1000" y="280" width="270" height="28" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="1135" y="300" text-anchor="middle" font-size="14" font-weight="bold">dim_geography</text>
+    <text x="1012" y="327" font-size="12" font-weight="bold">geography_key (PK)</text>
+    <text x="1012" y="345" font-size="12">country_name · alpha3 (UNIQUE)</text>
+    <text x="1012" y="363" font-size="12">sub_region → region  (hierarchy)</text>
+    <line x1="1010" y1="374" x2="1260" y2="374" stroke="#bbb"/>
+    <text x="1012" y="392" font-size="12" fill="#333">col_index · rent_index · col_rent_index</text>
+    <text x="1012" y="410" font-size="12" fill="#333">groceries_idx · restaurant_idx · lpp_index</text>
+    <text x="1012" y="430" font-size="11" fill="#777">Numbeo indices = descriptive attributes (D1)</text>
+    <text x="1012" y="448" font-size="11" fill="#777">~249 rows · ISO master, Korea fix applied (R6)</text>
+    <text x="1012" y="466" font-size="11" fill="#777">star: denormalized hierarchy (L1)</text>
+  </g>
+
+  <!-- DIM EXPERIENCE (left) -->
+  <g>
+    <rect x="60" y="340" width="240" height="110" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="60" y="340" width="240" height="28" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="180" y="360" text-anchor="middle" font-size="14" font-weight="bold">dim_experience</text>
+    <text x="72" y="387" font-size="12" font-weight="bold">experience_key (PK)</text>
+    <text x="72" y="405" font-size="12">years_code_pro → experience_band</text>
+    <text x="72" y="423" font-size="11" fill="#777">Junior 0–2 · Mid 3–5 · Senior 6–10 · Expert 11+</text>
+    <text x="72" y="441" font-size="11" fill="#777">~53 rows (incl. 'Unknown')</text>
+  </g>
+
+  <!-- small dims -->
+  <g>
+    <rect x="560" y="150" width="180" height="70" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="560" y="150" width="180" height="26" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="650" y="168" text-anchor="middle" font-size="13" font-weight="bold">dim_devtype</text>
+    <text x="572" y="194" font-size="11.5">devtype_key (PK)</text>
+    <text x="572" y="210" font-size="11.5">devtype_name (~35)</text>
+  </g>
+  <g>
+    <rect x="220" y="150" width="190" height="70" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="220" y="150" width="190" height="26" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="315" y="168" text-anchor="middle" font-size="13" font-weight="bold">dim_education</text>
+    <text x="232" y="194" font-size="11.5">education_key (PK)</text>
+    <text x="232" y="210" font-size="11.5">education_level (~9)</text>
+  </g>
+  <g>
+    <rect x="890" y="150" width="170" height="70" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="890" y="150" width="170" height="26" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="975" y="168" text-anchor="middle" font-size="13" font-weight="bold">dim_age</text>
+    <text x="902" y="194" font-size="11.5">age_key (PK)</text>
+    <text x="902" y="210" font-size="11.5">age_band (~9)</text>
+  </g>
+  <g>
+    <rect x="80" y="530" width="220" height="70" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="80" y="530" width="220" height="26" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="190" y="548" text-anchor="middle" font-size="13" font-weight="bold">dim_orgsize</text>
+    <text x="92" y="574" font-size="11.5">orgsize_key (PK)</text>
+    <text x="92" y="590" font-size="11.5">org_size (~11)</text>
+  </g>
+  <g>
+    <rect x="1000" y="590" width="230" height="70" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="1000" y="590" width="230" height="26" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="1115" y="608" text-anchor="middle" font-size="13" font-weight="bold">dim_industry</text>
+    <text x="1012" y="634" font-size="11.5">industry_key (PK)</text>
+    <text x="1012" y="650" font-size="11.5">industry_name (~16, incl. 'Unknown' R3)</text>
+  </g>
+  <g>
+    <rect x="250" y="690" width="210" height="70" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="250" y="690" width="210" height="26" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="355" y="708" text-anchor="middle" font-size="13" font-weight="bold">dim_remotework</text>
+    <text x="262" y="734" font-size="11.5">remotework_key (PK)</text>
+    <text x="262" y="750" font-size="11.5">work_mode (4)</text>
+  </g>
+  <g>
+    <rect x="720" y="690" width="220" height="70" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="720" y="690" width="220" height="26" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="830" y="708" text-anchor="middle" font-size="13" font-weight="bold">dim_employment</text>
+    <text x="732" y="734" font-size="11.5">employment_key (PK)</text>
+    <text x="732" y="750" font-size="11.5">employment_status (~54)</text>
+  </g>
+
+  <!-- BRIDGE + DIM LANGUAGE (bottom) -->
+  <g>
+    <rect x="460" y="800" width="280" height="100" fill="#f2e8fb" stroke="#000" stroke-width="2"/>
+    <rect x="460" y="800" width="280" height="28" fill="#d8c0f0" stroke="#000" stroke-width="2"/>
+    <text x="600" y="820" text-anchor="middle" font-size="14" font-weight="bold">bridge_response_language</text>
+    <text x="472" y="847" font-size="12">fact_key (FK) · language_key (FK)</text>
+    <text x="472" y="865" font-size="12">composite PK (fact_key, language_key)</text>
+    <text x="472" y="885" font-size="11" fill="#777">~121,000 rows · many-to-many (L4)</text>
+  </g>
+  <g>
+    <rect x="120" y="810" width="210" height="80" fill="#e8f2fb" stroke="#000" stroke-width="1.5"/>
+    <rect x="120" y="810" width="210" height="26" fill="#bcd8f0" stroke="#000" stroke-width="1.5"/>
+    <text x="225" y="828" text-anchor="middle" font-size="13" font-weight="bold">dim_language</text>
+    <text x="132" y="854" font-size="11.5">language_key (PK)</text>
+    <text x="132" y="870" font-size="11.5">language_name (49)</text>
+  </g>
+
+  <!-- legend -->
+  <g>
+    <rect x="960" y="790" width="310" height="120" fill="#fafafa" stroke="#ccc"/>
+    <text x="975" y="812" font-size="13" font-weight="bold">Legend</text>
+    <rect x="975" y="824" width="16" height="12" fill="#f0d890" stroke="#000"/>
+    <text x="998" y="834" font-size="12">fact table (measures + FKs)</text>
+    <rect x="975" y="844" width="16" height="12" fill="#bcd8f0" stroke="#000"/>
+    <text x="998" y="854" font-size="12">dimension table (surrogate key)</text>
+    <rect x="975" y="864" width="16" height="12" fill="#d8c0f0" stroke="#000"/>
+    <text x="998" y="874" font-size="12">bridge table (DFM multiple arc)</text>
+    <text x="975" y="898" font-size="11" fill="#777">'Unknown' member (key = 0) in every dimension</text>
+  </g>
+</svg>
