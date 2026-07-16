@@ -35,11 +35,11 @@ Kaggle sources ──► EXTRACT ──► TRANSFORM ──► LOAD ──► Po
                               derived measure)                                     percentile_cont)
 ```
 
-- **Conceptual design:** Dimensional Fact Model (Golfarelli–Rizzi notation) — fact `SURVEY RESPONSE` at the finest grain, non-additive measures aggregated with medians, geographic and experience hierarchies, a multiple arc for the multi-valued languages attribute. See [`docs/Fase2_DFM.svg`](docs/Fase2_DFM.svg).
-- **Logical design:** star schema — 1 fact table (~23k rows), 10 dimension tables with surrogate keys and explicit `'Unknown'` members, 1 bridge table (~121k rows). See [`docs/Fase3_Star_Schema.svg`](docs/Fase3_Star_Schema.svg).
+- **Conceptual design:** Dimensional Fact Model (Golfarelli–Rizzi notation) — fact `SURVEY RESPONSE` at the finest grain, non-additive measures aggregated with medians, geographic and experience hierarchies, a multiple arc for the multi-valued languages attribute. See [`diagrams/DFM.svg`](diagrams/DFM.svg).
+- **Logical design:** star schema — 1 fact table (~23k rows), 10 dimension tables with surrogate keys and explicit `'Unknown'` members, 1 bridge table (~121k rows). See [`diagrams/Star_Schema.svg`](diagrams/Star_Schema.svg).
 - **ETL:** a single idempotent Python script; every transformation cites the documented design rule it implements (R1–R6, D1–D3, L1–L6).
 
-![Star schema](docs/Fase3_Star_Schema.svg)
+![Star schema](diagrams/Star_Schema.svg)
 
 ## How to reproduce
 
@@ -71,7 +71,7 @@ The script is **idempotent**: every run rebuilds the schema from scratch and end
 |---|---|
 | `etl/` | The ETL pipeline (extract → transform → load → quality check) |
 | `sql/` | `olap_queries.sql` — the 8-query OLAP workload, each labelled with the OLAP operation it demonstrates; `demo_live.sql` — the 5-minute live-demo script |
-| `docs/` | Phase-by-phase design documentation: source analysis and data quality (Fase 1), DFM conceptual design (Fase 2), star schema logical design (Fase 3), results and interpretation (Fase 5) — in Italian |
+| `diagrams/` | Design diagrams: DFM conceptual schema and star schema (SVG) |
 | `charts/` | Result charts generated from the warehouse |
 | `presentation/` | Slide deck (English) |
 | `demo_app.py` | Minimal Streamlit dashboard on the live warehouse: choropleth map from ISO codes, nominal-vs-real ranking, and an interactive respondent-threshold slider that demonstrates rule R4 (thresholds live in queries, not in the ETL) |
