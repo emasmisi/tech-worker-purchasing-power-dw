@@ -57,6 +57,10 @@ python etl/etl_dw_techworker.py
 
 # 4. run the OLAP workload
 psql -d dw_techworker -f sql/olap_queries.sql
+
+# 5. (optional) live dashboard on top of the warehouse
+pip install streamlit plotly
+streamlit run demo_app.py
 ```
 
 The script is **idempotent**: every run rebuilds the schema from scratch and ends with a quality-check report (row counts, NULL audit, smoke-test ranking). Note: the connection string at the top of `etl/etl_dw_techworker.py` assumes a local passwordless user — adjust it to your environment.
@@ -70,6 +74,7 @@ The script is **idempotent**: every run rebuilds the schema from scratch and end
 | `docs/` | Phase-by-phase design documentation: source analysis and data quality (Fase 1), DFM conceptual design (Fase 2), star schema logical design (Fase 3), results and interpretation (Fase 5) — in Italian |
 | `charts/` | Result charts generated from the warehouse |
 | `presentation/` | Slide deck (English) |
+| `demo_app.py` | Minimal Streamlit dashboard on the live warehouse: choropleth map from ISO codes, nominal-vs-real ranking, and an interactive respondent-threshold slider that demonstrates rule R4 (thresholds live in queries, not in the ETL) |
 
 ## Design decisions worth noting
 
