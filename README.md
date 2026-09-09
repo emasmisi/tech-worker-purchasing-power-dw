@@ -1,6 +1,6 @@
 # The Purchasing Power of the Tech Worker
 
-**A Data Warehousing project**  Data Management A.Y. 2025/26, Sapienza University of Rome ([DW] track)
+**A Data Warehousing project** for Data Management A.Y. 2025/26, Sapienza University of Rome ([DW] track)
 
 **Authors:** Emanuele Smisi · Fabrizio Pietrobono
 
