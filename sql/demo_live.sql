@@ -6,7 +6,7 @@
 -- ============================================================
 
 -- ------------------------------------------------------------
--- D1 (0:00-0:45) — "Questo e' il data warehouse"
+-- "Questo e' il data warehouse"
 -- Star schema popolato: fatto, 10 dimensioni, bridge
 -- ------------------------------------------------------------
 SELECT 'fact_survey_response' AS tabella, count(*) AS righe, 'fatti (1 riga = 1 rispondente)' AS ruolo FROM fact_survey_response
@@ -18,7 +18,7 @@ ORDER BY righe DESC;
 
 
 -- ------------------------------------------------------------
--- D2 (0:45-1:45) — "Un fatto, tutto lo schema": join a stella
+--  "Un fatto, tutto lo schema": join a stella
 -- + la misura derivata comp_adjusted calcolata in ETL
 -- ------------------------------------------------------------
 SELECT f.response_id,
@@ -40,7 +40,7 @@ LIMIT 5;
 
 
 -- ------------------------------------------------------------
--- D3 (1:45-2:45) — LA BUSINESS QUESTION
+-- LA BUSINESS QUESTION
 -- Top 10 paesi per potere d'acquisto mediano (soglia n>=30)
 -- ------------------------------------------------------------
 SELECT country_name,
@@ -55,9 +55,11 @@ LIMIT 10;
 
 
 -- ------------------------------------------------------------
--- D4 (2:45-3:45) — ROLL-UP sulla gerarchia del DFM
+-- ROLL-UP sulla gerarchia del DFM
 -- GROUP BY ROLLUP = tutti i livelli di aggregazione in una query
--- (Est Europa > Ovest Europa in termini reali)
+-- ATTENZIONE: questo pooling pesa ogni paese per numero di
+-- rispondenti, non per realta'. Vedi Q9 in olap_queries.sql:
+-- a pesi uguali per paese il risultato Est/Ovest si ribalta.
 -- ------------------------------------------------------------
 -- NB: il WHERE agisce PRIMA del ROLLUP, quindi il subtotale
 --     e' correttamente "totale Europa" (non "mondo").
@@ -71,7 +73,7 @@ ORDER BY GROUPING(sub_region), mediana_reale DESC;
 
 
 -- ------------------------------------------------------------
--- D5 (3:45-4:45) — IL BRIDGE: attributo multi-valore
+-- IL BRIDGE: attributo multi-valore
 -- Salario reale mediano per linguaggio (>=200 rispondenti)
 -- ------------------------------------------------------------
 SELECT l.language_name,
@@ -87,7 +89,7 @@ LIMIT 10;
 
 
 -- ============================================================
--- BONUS (solo se avanzano tempo o su domanda del tutor)
+-- BONUS 
 -- ============================================================
 
 -- B1 — Remote vs in-person per region (FILTER)

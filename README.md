@@ -12,7 +12,7 @@
 
 A nominal salary is a misleading signal: 60,000 $ in Zurich and in Buenos Aires are two different lives. This project integrates three heterogeneous public sources into a star-schema data warehouse on PostgreSQL and answers the question with OLAP queries on cost-of-living-adjusted compensation.
 
-**Headline findings:** the US leads even in real terms — but below the top the ranking reshuffles completely (Georgia 3rd, Poland 6th, ahead of Canada and the UK); Eastern Europe overtakes Western Europe in median real purchasing power; remote work acts as a multiplier, with a real-terms premium ranging from +57% (Americas) to +134% (Africa).
+**Headline findings:** the US leads even in real terms, but below the top the ranking reshuffles completely (Georgia 3rd, Poland 6th, ahead of Canada and the UK); remote work acts as a multiplier, with a real-terms premium ranging from +57% (Americas) to +134% (Africa). One claim didn't survive scrutiny: pooling respondents made it look like Eastern Europe had overtaken Western Europe, but weighting every country equally reverses it (see Q9 in `sql/olap_queries.sql`).
 
 ![Top 15 countries](charts/1_top15_purchasing_power.png)
 
@@ -63,14 +63,14 @@ pip install streamlit plotly
 streamlit run demo_app.py
 ```
 
-The script is **idempotent**: every run rebuilds the schema from scratch and ends with a quality-check report (row counts, NULL audit, smoke-test ranking). Note: the connection string at the top of `etl/etl_dw_techworker.py` assumes a local passwordless user — adjust it to your environment.
+The script is **idempotent**: every run rebuilds the schema from scratch and ends with a quality-check report (row counts, NULL audit, smoke-test ranking). Note: the connection string at the top of `etl/etl_dw_techworker.py` assumes a local passwordless user; adjust it to your environment.
 
 ## Repository layout
 
 | Path | Content |
 |---|---|
 | `etl/` | The ETL pipeline (extract → transform → load → quality check) |
-| `sql/` | `olap_queries.sql` — the 8-query OLAP workload, each labelled with the OLAP operation it demonstrates; `demo_live.sql` — the 5-minute live-demo script |
+| `sql/` | `olap_queries.sql` — the OLAP workload (Q1–Q9), each labelled with the OLAP operation it demonstrates; `demo_live.sql` — the 5-minute live-demo script |
 | `diagrams/` | Design diagrams: DFM conceptual schema and star schema (SVG) |
 | `charts/` | Result charts generated from the warehouse |
 | `presentation/` | Slide deck (English) |

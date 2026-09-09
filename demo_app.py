@@ -20,7 +20,7 @@ def get_engine():
     return create_engine(DB_URL)
 
 # One SQL drives the whole app. The HAVING threshold is a parameter:
-# rule R4 — the warehouse keeps full grain, thresholds live in queries.
+# the warehouse keeps full grain, thresholds live in queries.
 SQL = """
 WITH per_country AS (
     SELECT g.country_name, g.alpha3, g.region,
@@ -47,7 +47,7 @@ def load(thr: int) -> pd.DataFrame:
     with get_engine().connect() as conn:
         return pd.read_sql(text(SQL), conn, params={"thr": thr})
 
-# ---------------- sidebar: the R4 rule, made tangible ----------------
+# ---------------- sidebar: made tangible ----------------
 st.sidebar.title("Tech Worker DW")
 thr = st.sidebar.slider("Min respondents per country (rule R4)", 10, 200, 30, step=5)
 st.sidebar.caption(

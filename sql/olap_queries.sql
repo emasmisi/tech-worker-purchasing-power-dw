@@ -173,7 +173,7 @@ LIMIT 10;
 --     skew noto verso USA/Europa). Qui calcoliamo anche la versione
 --     "a peso uguale per paese": prima la mediana per paese (come
 --     Q1), poi la mediana di QUELLE mediane. La numerosita' del
---     paese non conta piu' - ogni paese pesa 1, non n.
+--     paese non conta piu', ogni paese pesa 1, non n.
 -- ------------------------------------------------------------
 
 -- 9a. per region
@@ -222,7 +222,7 @@ SELECT
    FROM country_medians)                                                     AS mondo_country_equal_weighted,
   (SELECT count(*) FROM country_medians)                                     AS n_paesi;
 
--- 9c. per sub_region — test diretto della claim di slide 11
+-- 9c. per sub_region:  test diretto della claim di slide 11
 --     ("Eastern Europe overtakes Western Europe in real terms")
 WITH country_medians AS (
     SELECT country_name, sub_region,
