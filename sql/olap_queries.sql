@@ -161,3 +161,95 @@ GROUP BY v.country_name
 HAVING count(*) >= 30
 ORDER BY mediana_adj DESC
 LIMIT 10;
+
+
+-- ------------------------------------------------------------
+-- Q9. VERIFICA BIAS DEL ROLL-UP  [confronto tra due schemi di aggregazione]
+--     Q3/D4 fa percentile_cont sulle righe individuali pooled per
+--     region: il peso di ogni paese nell'aggregato è quindi
+--     proporzionale a quanti suoi cittadini hanno risposto al
+--     survey, non alla reale distribuzione della forza lavoro tech
+--     nel mondo (Stack Overflow non e' un campione rappresentativo:
+--     skew noto verso USA/Europa). Qui calcoliamo anche la versione
+--     "a peso uguale per paese": prima la mediana per paese (come
+--     Q1), poi la mediana di QUELLE mediane. La numerosita' del
+--     paese non conta piu' - ogni paese pesa 1, non n.
+-- ------------------------------------------------------------
+
+-- 9a. per region
+WITH country_medians AS (
+    SELECT country_name, region,
+           count(*) AS n,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY comp_adjusted) AS country_med_adj
+    FROM v_fact_geo
+    GROUP BY country_name, region
+    HAVING count(*) >= 30                                   -- stessa soglia R4
+),
+pooled AS (                                                  -- metodo attuale (Q3/D4)
+    SELECT region,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY comp_adjusted) AS pooled_median
+    FROM v_fact_geo
+    GROUP BY region
+),
+equal_weighted AS (                                          -- alternativa: 1 paese = 1 voto
+    SELECT region,
+           count(*) AS n_paesi,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY country_med_adj) AS eq_weighted_median
+    FROM country_medians
+    GROUP BY region
+)
+SELECT p.region,
+       ew.n_paesi,
+       round(p.pooled_median::numeric, 0)        AS pooled_respondent_weighted,
+       round(ew.eq_weighted_median::numeric, 0)  AS country_equal_weighted,
+       round((p.pooled_median - ew.eq_weighted_median)::numeric, 0) AS scarto
+FROM pooled p
+JOIN equal_weighted ew USING (region)
+ORDER BY scarto DESC;
+
+-- 9b. livello mondo (una sola riga)
+WITH country_medians AS (
+    SELECT country_name,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY comp_adjusted) AS country_med_adj
+    FROM v_fact_geo
+    GROUP BY country_name
+    HAVING count(*) >= 30
+)
+SELECT
+  (SELECT round(percentile_cont(0.5) WITHIN GROUP (ORDER BY comp_adjusted)::numeric, 0)
+   FROM v_fact_geo)                                                          AS mondo_pooled,
+  (SELECT round(percentile_cont(0.5) WITHIN GROUP (ORDER BY country_med_adj)::numeric, 0)
+   FROM country_medians)                                                     AS mondo_country_equal_weighted,
+  (SELECT count(*) FROM country_medians)                                     AS n_paesi;
+
+-- 9c. per sub_region — test diretto della claim di slide 11
+--     ("Eastern Europe overtakes Western Europe in real terms")
+WITH country_medians AS (
+    SELECT country_name, sub_region,
+           count(*) AS n,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY comp_adjusted) AS country_med_adj
+    FROM v_fact_geo
+    GROUP BY country_name, sub_region
+    HAVING count(*) >= 30
+),
+pooled AS (
+    SELECT sub_region,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY comp_adjusted) AS pooled_median
+    FROM v_fact_geo
+    GROUP BY sub_region
+),
+equal_weighted AS (
+    SELECT sub_region,
+           count(*) AS n_paesi,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY country_med_adj) AS eq_weighted_median
+    FROM country_medians
+    GROUP BY sub_region
+)
+SELECT p.sub_region,
+       ew.n_paesi,
+       round(p.pooled_median::numeric, 0)        AS pooled_respondent_weighted,
+       round(ew.eq_weighted_median::numeric, 0)  AS country_equal_weighted,
+       round((p.pooled_median - ew.eq_weighted_median)::numeric, 0) AS scarto
+FROM pooled p
+JOIN equal_weighted ew USING (sub_region)
+ORDER BY scarto DESC;
