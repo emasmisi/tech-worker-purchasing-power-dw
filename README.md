@@ -37,7 +37,7 @@ Kaggle sources ──► EXTRACT ──► TRANSFORM ──► LOAD ──► Po
 
 - **Conceptual design:** Dimensional Fact Model (Golfarelli–Rizzi notation) — fact `SURVEY RESPONSE` at the finest grain, non-additive measures aggregated with medians, geographic and experience hierarchies, a multiple arc for the multi-valued languages attribute. See [`diagrams/DFM.svg`](diagrams/DFM.svg).
 - **Logical design:** star schema — 1 fact table (~23k rows), 10 dimension tables with surrogate keys and explicit `'Unknown'` members, 1 bridge table (~121k rows). See [`diagrams/Star_Schema.svg`](diagrams/Star_Schema.svg).
-- **ETL:** a single idempotent Python script; every transformation cites the documented design rule it implements (R1–R6, D1–D3, L1–L6).
+- **ETL:** a single idempotent Python script; every transformation cites the documented design rule it implements (R1–R6, D1–D3, L1–L6 — see [`DESIGN_RULES.md`](DESIGN_RULES.md) for what each one means).
 
 ![Star schema](diagrams/Star_Schema.svg)
 
@@ -70,6 +70,7 @@ The script is **idempotent**: every run rebuilds the schema from scratch and end
 | Path | Content |
 |---|---|
 | `etl/` | The ETL pipeline (extract → transform → load → quality check) |
+| `DESIGN_RULES.md` | Full definition of every rule code cited in the code and README (R1–R6, D1–D3, L1–L6) |
 | `sql/` | `olap_queries.sql` — the OLAP workload (Q1–Q9), each labelled with the OLAP operation it demonstrates; `demo_live.sql` — the 5-minute live-demo script |
 | `diagrams/` | Design diagrams: DFM conceptual schema and star schema (SVG) |
 | `charts/` | Result charts generated from the warehouse |
